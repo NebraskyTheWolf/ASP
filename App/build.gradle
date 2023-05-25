@@ -1,0 +1,60 @@
+plugins {
+    id 'java-base'
+    id 'com.android.library'
+}
+
+group 'org.example'
+version '1.0'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        disable 'RequiredSize'
+    }
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+    google()
+}
+
+dependencies {
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    compileOnly 'org.robolectric:android-all:10-robolectric-5803371'
+    compileOnly 'com.google.android.material:material:1.2.1'
+    compileOnly 'androidx.appcompat:appcompat:1.2.0'
+}
+
+/* jar {
+    version = null
+} */
+afterEvaluate {
+    // println("XXX: " + tasks.findByName("verifyReleaseResources")
+    // .getClass().getSuperclass().getName())
+    tasks.withType(com.android.build.gradle.tasks.VerifyLibraryResourcesTask) {
+        enabled = false
+    }
+}
+
+targetCompatibility = 1.7
+sourceCompatibility = 1.7

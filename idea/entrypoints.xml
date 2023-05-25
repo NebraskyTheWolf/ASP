@@ -1,0 +1,5 @@
+<component name="EntryPointsManager">
+    <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="com.fluffcord.app.annotations.HookTarget" />
+    </list>
+</component>

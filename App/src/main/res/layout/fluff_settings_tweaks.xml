@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+        style="@style/UiKit.ViewGroup.Page"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.appbar.AppBarLayout style="@style/AppTheme.AppBarLayout.Flat">
+        <com.fluffcord.app.widget.FluffToolbar app:navigationContentDescription="@string/back" app:navigationIcon="?ic_action_bar_back"
+                                           app:subtitle="@string/user_settings" app:title="@string/voice_and_video" style="@style/AppTheme.Toolbar" />
+    </com.google.android.material.appbar.AppBarLayout>
+    <androidx.core.widget.NestedScrollView style="@style/UiKit.ViewGroup.NestedScrollView.AppBarScrollingViewBehavior">
+        <com.fluffcord.app.views.FluffLayout style="@style/UiKit.ViewGroup.LinearLayout">
+            <TextView android:text="Lul Settings" style="@style/UiKit.Settings.Item.Header" />
+            <com.discord.views.CheckedSetting android:id="@+id/fluff_toggle_lol" app:cs_text="Enable potato"
+                                              app:cs_view_type="switchview" style="@style/UiKit.CheckedSetting.Themed" />
+            <View style="@style/UiKit.Settings.Divider" />
+            <TextView android:text="Kibbles Settings" style="@style/UiKit.Settings.Item.Header" />
+            <com.discord.views.CheckedSetting android:id="@+id/fluff_toggle_kibbles" app:cs_text="Enable kibbles"
+                                              app:cs_subtext="Show Kibbles everywhere"
+                                              app:cs_view_type="switchview" style="@style/UiKit.CheckedSetting.Themed" />
+        </com.fluffcord.app.views.FluffLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

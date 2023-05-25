@@ -1,0 +1,76 @@
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:4.1.1"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+group 'com.fluffcord'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    shadow
+}
+
+afterEvaluate {
+    jar {
+        manifest {
+            attributes 'Main-Class': 'com.fluffcord.patcher.Pawtcher'
+        }
+
+        from(configurations.shadow.collect { it.isDirectory() ? it : zipTree(it) }) {
+            exclude 'module-info.class'
+            exclude 'META-INF/*.SF'
+            exclude 'META-INF/*.DSA'
+        }
+
+        from(new File(project(":App").buildDir.path, "outputs/aar")) {
+            include 'App-release.aar'
+        }
+    }
+}
+
+allprojects {
+    afterEvaluate {
+        tasks.withType(JavaCompile) {
+            options.encoding = "UTF-8"
+        }
+    }
+}
+
+targetCompatibility = 1.8
+sourceCompatibility = 1.8
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    shadow fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.google.code.gson:gson:2.8.6'
+    shadow 'com.google.code.gson:gson:2.8.6'
+    implementation 'me.tongfei:progressbar:0.8.1'
+    shadow 'me.tongfei:progressbar:0.8.1'
+
+    implementation "org.bouncycastle:bcprov-jdk15on:1.66"
+    shadow "org.bouncycastle:bcprov-jdk15on:1.66"
+    implementation "org.bouncycastle:bcpkix-jdk15on:1.66"
+    shadow "org.bouncycastle:bcpkix-jdk15on:1.66"
+    implementation "org.bouncycastle:bcmail-jdk15on:1.66"
+    shadow "org.bouncycastle:bcmail-jdk15on:1.66"
+}
+
+classes.dependsOn(":App:assemble")
+build.dependsOn(jar)
